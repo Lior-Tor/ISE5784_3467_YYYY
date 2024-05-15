@@ -48,10 +48,10 @@ public class Vector extends Point {
     }
 
     public Vector crossProduct(Vector vector) {
-
+        return vector;
     }
 
     public double dotProduct(Vector vector) {
-
+        return 1.0d;
     }
 }
