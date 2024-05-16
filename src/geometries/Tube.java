@@ -2,8 +2,8 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
-import primitives.Util;
 import primitives.Vector;
+import primitives.Util;
 
 /**
  * Tube Class
@@ -13,12 +13,12 @@ import primitives.Vector;
 public class Tube extends RadialGeometry {
 
     /**
-     * axisRay (line with direction)
+     * axis (line with direction)
      */
     protected final Ray axis;
 
     /**
-     * Tube's Constructor
+     * Tube constructor
      *
      * @param radius double's type
      * @param ray    Ray's type
@@ -31,7 +31,7 @@ public class Tube extends RadialGeometry {
     @Override
     public String toString() {
         return "Tube{" +
-                "axisRay=" + axis + ' ' + super.toString() +
+                "axis=" + axis + ' ' + super.toString() +
                 '}';
     }
 

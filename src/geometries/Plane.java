@@ -9,12 +9,11 @@ import primitives.Vector;
 public class Plane extends Geometry {
 
     private final Point q;
-
     private final Vector normal;
 
     /**
-     * constructor
-     * calculate the normal according to what was learned about the normal to a triangle
+     * Constructor
+     * Calculate the normal according to what was learned about the normal to a triangle
      *
      * @param p1
      * @param p2
@@ -26,7 +25,7 @@ public class Plane extends Geometry {
     }
 
     /**
-     * put in normal filed the normalized vector received as parameter
+     * Put in normal filed the normalized vector received as parameter
      *
      * @param point
      * @param normal - getting a vector, not necessary a normal vector
@@ -37,20 +36,20 @@ public class Plane extends Geometry {
     }
 
     @Override
-    public Vector getNormal(Point point) {
-        return normal;
-    }
-
-    @Override
     public String toString() {
         return "Plane{" +
-                "q0=" + q +
+                "q=" + q +
                 ", normal=" + normal +
                 '}';
     }
 
+    @Override
+    public Vector getNormal(Point point) {
+        return normal;
+    }
+
     /**
-     * getter for normal field
+     * Getter for normal field
      *
      * @return normal
      */

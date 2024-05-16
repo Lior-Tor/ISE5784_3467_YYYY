@@ -13,7 +13,7 @@ public class Cylinder extends Tube {
     private final double height;
 
     /**
-     * Cylinder Constructor
+     * Cylinder constructor
      *
      * @param radius
      * @param ray
@@ -28,7 +28,7 @@ public class Cylinder extends Tube {
     public String toString() {
         return "Cylinder{" +
                 "height=" + height +
-                ", axisRay=" + axis +
+                ", axis=" + axis +
                 ", radius=" + radius +
                 '}';
     }

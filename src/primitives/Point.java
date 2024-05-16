@@ -8,26 +8,23 @@ import java.util.Objects;
 public class Point {
 
     protected final Double3 xyz;
-
     public static final Point ZERO = new Point(0, 0, 0);
 
     /**
-     * constructor for point
-     * gets 3 double params
+     * Constructor for point with 3 double parameters
      *
      * @param x x value of the point
      * @param y y value of the point
      * @param z z value of the point
      */
     public Point(double x, double y, double z) {
-
         this.xyz = new Double3(x, y, z);
     }
 
     /**
-     * constructor for point by immutable parameter of Double3 Type
+     * Constructor for point by immutable parameter of Double3 type
      *
-     * @param xyz
+     * @param xyz xyz
      */
     public Point(final Double3 xyz) {
         this.xyz = xyz;
@@ -37,7 +34,7 @@ public class Point {
      * Vector subtraction
      *
      * @param point - receives a second point in the parameter to subtract with
-     * @return a vector from the second point to the point on which the subtraction is performed the action
+     * @return a vector from the second point to the point on which the subtraction has been performed
      */
     public Vector subtract(Point point) {
         Double3 temp = this.xyz.subtract(point.xyz);
@@ -45,7 +42,7 @@ public class Point {
     }
 
     /**
-     * adding Vector to the current point and returns a new updated point
+     * Adding Vector to the current point and returns a new updated point
      *
      * @param vec vector to add to point
      * @return new updated point
@@ -59,7 +56,7 @@ public class Point {
      * distanceSquared calculation
      *
      * @param point - point to calculate distance from
-     * @return the power of the distance between the current point and the point received by parameter
+     * @return the power of the distance between the current point and the point received
      */
     public double distanceSquared(Point point) {
         Double3 temp = point.xyz;
@@ -71,10 +68,10 @@ public class Point {
     }
 
     /**
-     * calculates the distance between the current point and the point received by parameter
+     * Calculates the distance between the current point and the point received by parameter
      *
      * @param point - point to calculate distance from
-     * @return the distance between the current point and the point received by parameter
+     * @return the distance between the current point and the point received
      */
     public double distance(Point point) {
         return Math.sqrt(distanceSquared(point));

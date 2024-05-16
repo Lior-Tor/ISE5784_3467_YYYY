@@ -11,7 +11,7 @@ public class Sphere extends RadialGeometry {
     private final Point center;
 
     /**
-     * Sphere Constructor
+     * Sphere constructor
      *
      * @param radius field of Sphere
      * @param center field of Sphere

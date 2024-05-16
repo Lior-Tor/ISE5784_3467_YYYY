@@ -3,16 +3,16 @@ package primitives;
 import java.util.Objects;
 
 /**
- * Ray - represents a "Semi-straight - all the points on the straight line that are on one
+ * Ray - represents a semi-straight - all the points on the straight line that are on one
  * side of the given point on the straight line called the beginning of the ray
  */
 public class Ray {
 
-    private Point head;
-    private Vector direction;
+    private final Point head;
+    private final Vector direction;
 
     /**
-     * constructor for Ray
+     * Constructor for Ray
      *
      * @param h   head
      * @param vec vector
@@ -37,8 +37,8 @@ public class Ray {
     @Override
     public String toString() {
         return "Ray{" +
-                "p0=" + head +
-                ", dir=" + direction +
+                "head=" + head +
+                ", direction=" + direction +
                 '}';
     }
 

@@ -6,8 +6,8 @@ package primitives;
 public class Vector extends Point {
 
     /**
-     * Three params Constructor
-     * if the vector isZero = (0,0,0) => throw an Exception
+     * Three parameters constructor
+     * If the vector isZero = (0,0,0) => throw an Exception
      *
      * @param x coordinate x
      * @param y coordinate y
@@ -21,8 +21,8 @@ public class Vector extends Point {
     }
 
     /**
-     * One param Constructor
-     * if the vector isZero = (0,0,0) => throw an Exception
+     * One parameter constructor
+     * If the vector isZero = (0,0,0) => throw an Exception
      *
      * @param xyz variable of type Double3 which represent the coordinate of the Vector
      */
@@ -36,7 +36,7 @@ public class Vector extends Point {
      * Add two Vectors
      *
      * @param vec Vector to add with
-     * @return return the Vector who represent the addition
+     * @return the Vector who represent the addition
      */
     public Vector add(Vector vec) {
         Double3 temp = this.xyz.add(vec.xyz);
@@ -47,15 +47,15 @@ public class Vector extends Point {
      * Scale function : multiply
      *
      * @param scalar the scalar to multiply with
-     * @return return the Vector multiply by the scalar
+     * @return the Vector multiply by the scalar
      */
     public Vector scale(double scalar) {
         return new Vector(this.xyz.scale(scalar));
     }
 
     /**
-     * @param vec vector to scalar product by
-     * @return return the vector result of the scalar product
+     * @param vec vector to scalar product
+     * @return the vector result of the scalar product
      */
     public double dotProduct(Vector vec) {
         Double3 temp1 = this.xyz;
@@ -64,8 +64,8 @@ public class Vector extends Point {
     }
 
     /**
-     * @param vec Vector to multiply by
-     * @return return the result of the vector multiplication
+     * @param vec Vector to multiply
+     * @return the result of the vector multiplication
      */
     public Vector crossProduct(Vector vec) {
         /** there are three units vectors i(1,0,0), j(0,1,0) and k(0,0,1) */
@@ -75,13 +75,12 @@ public class Vector extends Point {
         double y = -(temp1.d1 * temp2.d3 - temp1.d3 * temp2.d1); /** Calculate determinant of i and k columns*/
         double z = temp1.d1 * temp2.d2 - temp1.d2 * temp2.d1; /** Calculate determinant of i and j columns*/
         return new Vector(x, y, z);
-
     }
 
     /**
      * Calculate the length squared of the vector.
      *
-     * @return return the vector's length squared
+     * @return the vector's length squared
      */
     public double lengthSquared() {
         return this.dotProduct(this);
@@ -90,16 +89,16 @@ public class Vector extends Point {
     /**
      * Calculate the length of the vector
      *
-     * @return return the vector's length
+     * @return the vector's length
      */
     public double length() {
         return Math.sqrt(this.lengthSquared());
     }
 
     /**
-     * normalize the vector
+     * Normalize the vector
      *
-     * @return return the vector normalized
+     * @return the vector normalized
      */
     public Vector normalize() {
         Double3 temp = this.xyz;
@@ -130,4 +129,5 @@ public class Vector extends Point {
         if (!(o instanceof Vector vector)) return false;
         return xyz.equals(vector.xyz);
     }
+
 }

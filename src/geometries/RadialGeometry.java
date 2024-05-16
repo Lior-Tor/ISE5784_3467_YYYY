@@ -25,4 +25,5 @@ public abstract class RadialGeometry extends Geometry {
                 "radius=" + radius +
                 '}';
     }
+
 }
