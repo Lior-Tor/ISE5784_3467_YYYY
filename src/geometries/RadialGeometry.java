@@ -11,7 +11,7 @@ public abstract class RadialGeometry extends Geometry {
     protected final double radius;
 
     /**
-     * RadialGeometry Constructor
+     * RadialGeometry constructor
      *
      * @param radius fields of RadialGeometry
      */
