@@ -11,14 +11,17 @@ import static primitives.Util.isZero;
  * @author Dan Zilberstein
  */
 public class Double3 {
+
     /**
      * First number
      */
     final double d1;
+
     /**
      * Second number
      */
     final double d2;
+
     /**
      * Third number
      */
@@ -155,4 +158,5 @@ public class Double3 {
     public boolean lowerThan(Double3 other) {
         return d1 < other.d1 && d2 < other.d2 && d3 < other.d3;
     }
+
 }
