@@ -3,23 +3,24 @@ package primitives;
 import java.util.Objects;
 
 /**
- * Ray - represents a semi-straight - all the points on the straight line that are on one
+ * Ray - represents a "Semi-straight - all the points on the straight line that are on one
  * side of the given point on the straight line called the beginning of the ray
  */
 public class Ray {
 
     private final Point head;
+
     private final Vector direction;
 
     /**
      * Constructor for Ray
      *
-     * @param h   head
-     * @param vec vector
+     * @param p
+     * @param vec
      */
-    public Ray(Point h, Vector vec) {
+    public Ray(Point p, Vector vec) {
         this.direction = vec.normalize();
-        this.head = h;
+        this.head = p;
     }
 
     @Override
@@ -40,6 +41,14 @@ public class Ray {
                 "head=" + head +
                 ", direction=" + direction +
                 '}';
+    }
+
+    public Point getHead() {
+        return head;
+    }
+
+    public Vector getDirection() {
+        return direction;
     }
 
 }

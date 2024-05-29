@@ -2,23 +2,21 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
-import primitives.Vector;
 import primitives.Util;
+import primitives.Vector;
 
 /**
  * Tube Class
  * Tube (infinite cylinder)
  */
-
 public class Tube extends RadialGeometry {
-
     /**
-     * axis (line with direction)
+     * axisRay (line with direction)
      */
-    protected final Ray axis;
+    protected Ray axis;
 
     /**
-     * Tube constructor
+     * Tube's constructor
      *
      * @param radius double's type
      * @param ray    Ray's type
@@ -37,7 +35,28 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        double t;
+        Point p0 = this.axis.getHead();
+        Vector sub;
+        Vector dir = this.axis.getDirection();
+        try {
+            sub = point.subtract(p0);
+            t = Util.alignZero(dir.dotProduct(sub));
+        } catch (IllegalArgumentException ex) {
+            return null;
+        }
+
+        if (Util.isZero(t))
+            return sub.normalize();
+
+        Point o = p0.add(dir.scale(t));
+        Vector normal;
+        try {
+            normal = point.subtract(o).normalize();
+        } catch (IllegalArgumentException ex) {
+            return null;
+        }
+        return normal;
     }
 
 }

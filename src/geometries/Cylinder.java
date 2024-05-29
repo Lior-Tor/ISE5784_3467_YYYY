@@ -6,7 +6,7 @@ import primitives.Point;
 import primitives.Ray;
 
 /**
- * Cylinder class
+ * Cylinder Class
  */
 public class Cylinder extends Tube {
 
@@ -35,7 +35,38 @@ public class Cylinder extends Tube {
 
     @Override
     public Vector getNormal(Point point) {
-        return null;
+        Point p0 = this.axis.getHead();
+        Vector dir = this.axis.getDirection();
+
+        if (p0.equals(point))
+            return dir.normalize();
+
+        Vector sub;
+        double t;
+
+        try {
+            sub = point.subtract(p0);
+            t = Util.alignZero(dir.dotProduct(sub));
+        } catch (IllegalArgumentException ex) {
+            return null;
+        }
+
+        if (Util.isZero(t))
+            return dir.normalize();
+
+        if (Util.isZero(t - this.height))
+            return dir;
+
+        Point o;
+        Vector normal;
+        try {
+            o = p0.add(dir.scale(t));
+            normal = point.subtract(o).normalize();
+        } catch (IllegalArgumentException ex) {
+            return null;
+        }
+
+        return normal;
     }
 
 }

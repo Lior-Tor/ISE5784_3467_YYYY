@@ -1,14 +1,17 @@
 package geometries;
 
+import primitives.Point;
+import primitives.Vector;
+
 /**
  * RadialGeometry abstract Class
  */
-public abstract class RadialGeometry extends Geometry {
+public abstract class RadialGeometry implements Geometry {
 
     /**
      * Radius
      */
-    protected final double radius;
+    protected double radius;
 
     /**
      * RadialGeometry constructor

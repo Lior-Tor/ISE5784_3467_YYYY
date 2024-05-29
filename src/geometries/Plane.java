@@ -4,16 +4,17 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * Plane class
+ * Plane Class
  */
-public class Plane extends Geometry {
+public class Plane implements Geometry {
 
     private final Point q;
+
     private final Vector normal;
 
     /**
      * Constructor
-     * Calculate the normal according to what was learned about the normal to a triangle
+     * Calculates the normal according to what was learned about the normal to a triangle
      *
      * @param p1
      * @param p2
@@ -21,7 +22,20 @@ public class Plane extends Geometry {
      */
     public Plane(Point p1, Point p2, Point p3) {
         this.q = p1;
-        this.normal = null;
+        Vector v1;
+        Vector v2;
+        Vector tmp;
+
+        try{
+            v1 = p2.subtract(p1);
+            v2 = p3.subtract(p2);
+            tmp = v1.crossProduct(v2);
+        }
+        catch(IllegalArgumentException ex){
+            throw ex;
+        }
+
+        this.normal = tmp.normalize();
     }
 
     /**
@@ -43,11 +57,6 @@ public class Plane extends Geometry {
                 '}';
     }
 
-    @Override
-    public Vector getNormal(Point point) {
-        return normal;
-    }
-
     /**
      * Getter for normal field
      *
@@ -55,6 +64,11 @@ public class Plane extends Geometry {
      */
     public Vector getNormal() {
         return this.normal;
+    }
+
+    @Override
+    public Vector getNormal(Point point) {
+        return normal;
     }
 
 }

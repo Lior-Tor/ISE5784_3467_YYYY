@@ -21,7 +21,7 @@ public class Vector extends Point {
     }
 
     /**
-     * One parameter constructor
+     * One param constructor
      * If the vector isZero = (0,0,0) => throw an Exception
      *
      * @param xyz variable of type Double3 which represent the coordinate of the Vector
@@ -32,49 +32,18 @@ public class Vector extends Point {
             throw new IllegalArgumentException("Vector 0 is illegal");
     }
 
-    /**
-     * Add two Vectors
-     *
-     * @param vec Vector to add with
-     * @return the Vector who represent the addition
-     */
-    public Vector add(Vector vec) {
-        Double3 temp = this.xyz.add(vec.xyz);
-        return new Vector(temp);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vector vector)) return false;
+        return xyz.equals(vector.xyz);
     }
 
-    /**
-     * Scale function : multiply
-     *
-     * @param scalar the scalar to multiply with
-     * @return the Vector multiply by the scalar
-     */
-    public Vector scale(double scalar) {
-        return new Vector(this.xyz.scale(scalar));
-    }
-
-    /**
-     * @param vec vector to scalar product
-     * @return the vector result of the scalar product
-     */
-    public double dotProduct(Vector vec) {
-        Double3 temp1 = this.xyz;
-        Double3 temp2 = vec.xyz;
-        return (temp1.d1 * temp2.d1 + temp1.d2 * temp2.d2 + temp1.d3 * temp2.d3); /** algebraic formula of scalar product */
-    }
-
-    /**
-     * @param vec Vector to multiply
-     * @return the result of the vector multiplication
-     */
-    public Vector crossProduct(Vector vec) {
-        /** there are three units vectors i(1,0,0), j(0,1,0) and k(0,0,1) */
-        Double3 temp1 = this.xyz;
-        Double3 temp2 = vec.xyz;
-        double x = temp1.d2 * temp2.d3 - temp1.d3 * temp2.d2; /** Calculate determinant of j and k columns*/
-        double y = -(temp1.d1 * temp2.d3 - temp1.d3 * temp2.d1); /** Calculate determinant of i and k columns*/
-        double z = temp1.d1 * temp2.d2 - temp1.d2 * temp2.d1; /** Calculate determinant of i and j columns*/
-        return new Vector(x, y, z);
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "xyz=" + xyz +
+                '}';
     }
 
     /**
@@ -96,6 +65,52 @@ public class Vector extends Point {
     }
 
     /**
+     * Add two Vectors
+     *
+     * @param vec Vector to add with
+     * @return the Vector who represent the addition
+     */
+    public Vector add(Vector vec) {
+        Double3 temp = this.xyz.add(vec.xyz);
+        return new Vector(temp);
+    }
+
+    /**
+     * Scale function : multiply
+     *
+     * @param scalar the scalar to multiply with
+     * @return the Vector multiply by the scalar
+     */
+    public Vector scale(double scalar) {
+
+        return new Vector(this.xyz.scale(scalar));
+    }
+
+    /**
+     * @param vec vector to scalar product by
+     * @return the vector result of the scalar product
+     */
+    public double dotProduct(Vector vec) {
+        Double3 temp1 = this.xyz;
+        Double3 temp2 = vec.xyz;
+        return (temp1.d1 * temp2.d1 + temp1.d2 * temp2.d2 + temp1.d3 * temp2.d3); /** algebraic formula of scalar product */
+    }
+
+    /**
+     * @param vec Vector to multiply by
+     * @return the result of the vector multiplication
+     */
+    public Vector crossProduct(Vector vec) {
+        /** there are three units vectors i(1,0,0), j(0,1,0) and k(0,0,1) */
+        Double3 temp1 = this.xyz;
+        Double3 temp2 = vec.xyz;
+        double x = temp1.d2 * temp2.d3 - temp1.d3 * temp2.d2; /** Calculate determinant of j and k columns*/
+        double y = -(temp1.d1 * temp2.d3 - temp1.d3 * temp2.d1); /** Calculate determinant of i and k columns*/
+        double z = temp1.d1 * temp2.d2 - temp1.d2 * temp2.d1; /** Calculate determinant of i and j columns*/
+        return new Vector(x, y, z);
+    }
+
+    /**
      * Normalize the vector
      *
      * @return the vector normalized
@@ -114,20 +129,6 @@ public class Vector extends Point {
         }
 
         return vec;
-    }
-
-    @Override
-    public String toString() {
-        return "Vector{" +
-                "xyz=" + xyz +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Vector vector)) return false;
-        return xyz.equals(vector.xyz);
     }
 
 }

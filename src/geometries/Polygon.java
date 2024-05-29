@@ -8,20 +8,22 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
- * system
+ * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate system
  *
- * @author Dan
+ * @author Dan Zilberstein
  */
-public class Polygon extends Geometry {
+public class Polygon implements Geometry {
+
     /**
      * List of polygon's vertices
      */
     protected final List<Point> vertices;
+
     /**
      * Associated plane in which the polygon lays
      */
     protected final Plane plane;
+
     /**
      * The size of the polygon - the amount of the vertices in the polygon
      */
