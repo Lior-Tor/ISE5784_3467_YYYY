@@ -5,13 +5,15 @@ import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Tube Class
  * Tube (infinite cylinder)
  */
 public class Tube extends RadialGeometry {
     /**
-     * axisRay (line with direction)
+     * axis (line with direction)
      */
     protected Ray axis;
 
@@ -57,6 +59,11 @@ public class Tube extends RadialGeometry {
             return null;
         }
         return normal;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 
 }

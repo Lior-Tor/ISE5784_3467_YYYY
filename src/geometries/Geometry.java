@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * Geometry Interface
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
 
     /**
      * Calculate the normal Vector from the parameter Point

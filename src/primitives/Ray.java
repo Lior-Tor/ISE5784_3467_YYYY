@@ -51,5 +51,19 @@ public class Ray {
         return direction;
     }
 
+    /**
+     * Calculate the point on the ray by the parameter t
+     *
+     * @param t
+     * @return the point on the ray
+     */
+    public Point getPoint(double t) {
+        if (Util.isZero(t)) {
+            return this.head;
+        }
+        Vector vec = this.direction.scale(t);
+        return this.head.add(vec);
+    }
+
 }
 

@@ -95,5 +95,8 @@ public class Point {
         return ((temp.d1 - temp2.d1) * (temp.d1 - temp2.d1) + (temp.d2 - temp2.d2) * (temp.d2 - temp2.d2) + (temp.d3 - temp2.d3) * (temp.d3 - temp2.d3));
     }
 
-}
+    public Double3 getXYZ() {
+        return xyz;
+    }
 
+}
