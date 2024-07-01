@@ -75,6 +75,7 @@ public class Camera implements Cloneable {
     }
 
     public void setVpSize(int viewPlane, int viewPlane1) {
+
     }
 
 
