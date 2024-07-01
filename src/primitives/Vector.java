@@ -131,5 +131,15 @@ public class Vector extends Point {
         return vec;
     }
 
+    /**
+     * Checks if two vectors are orthogonal (perpendicular)
+     *
+     * @param other the other vector
+     * @return true if orthogonal, false otherwise
+     */
+    public boolean isOrthogonal(Vector other) {
+        return Util.isZero(this.dotProduct(other));
+    }
+
 }
 
