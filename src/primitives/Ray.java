@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -63,6 +64,26 @@ public class Ray {
         }
         Vector vec = this.direction.scale(t);
         return this.head.add(vec);
+    }
+
+    /**
+     * Finds the closest point to the head of the ray from a list of points.
+     *
+     * @param pointList
+     * @return the closest point from the list
+     */
+    public Point findClosestPoint(List<Point> pointList) {
+        double temp;
+        Point min = null;
+        double minDistance = Double.POSITIVE_INFINITY;
+        for (Point point : pointList) {
+            temp = this.head.distance(point);
+            if (temp < minDistance) {
+                min = point;
+                minDistance = temp;
+            }
+        }
+        return min;
     }
 
 }

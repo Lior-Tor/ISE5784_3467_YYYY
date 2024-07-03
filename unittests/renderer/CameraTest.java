@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import primitives.*;
 import renderer.*;
+import scene.Scene;
 
 import javax.imageio.ImageWriter;
 

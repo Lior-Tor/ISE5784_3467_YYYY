@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.Util;
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -15,7 +16,7 @@ import static primitives.Util.isZero;
  */
 public class Camera implements Cloneable {
 
-    private Point  location;
+    private Point location;
     private Vector vTo, vUp, vRight;
     private double vpDistance, vpWidth, vpHeight;
     private RayTracerBase rayTracer;
@@ -63,9 +64,9 @@ public class Camera implements Cloneable {
         double xJ = alignZero((j - (nX - 1) / 2d) * rX);
 
         Point pIJ = pC;
-        if(!isZero(xJ))
+        if (!isZero(xJ))
             pIJ = pIJ.add(vRight.scale(xJ));
-        if(!isZero(yI))
+        if (!isZero(yI))
             pIJ = pIJ.add(vUp.scale(yI));
 
 
@@ -77,7 +78,6 @@ public class Camera implements Cloneable {
     public void setVpSize(int viewPlane, int viewPlane1) {
 
     }
-
 
     /**
      * Camera Builder class using Builder Design Pattern
@@ -248,6 +248,63 @@ public class Camera implements Cloneable {
 
     public ImageWriter getImageWriter() {
         return imageWriter;
+    }
+
+    /**
+     * Chaining functions
+     */
+    public void printGrid(int interval, Color color) {
+
+        if (this.imageWriter == null)
+            throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+
+        imageWriter.printGrid(interval, color);
+    }
+
+    /**
+     * write to image
+     *
+     * @return
+     */
+    public Camera writeToImage() {
+        if (this.imageWriter == null)
+            throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+        imageWriter.writeToImage();
+        return this;
+    }
+
+    public void renderImage() {
+        try {
+            if (imageWriter == null) {
+                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+            }
+            if (rayTracer == null) {
+                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
+            }
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    castRay(nX, nY, i, j);
+                }
+            }
+        } catch (MissingResourceException ex) {
+            throw new UnsupportedOperationException("Not implemented yet" + ex.getClassName());
+        }
+    }
+
+    /**
+     * Cast ray from camera in order to color a pixel
+     *
+     * @param nX   - resolution on X axis (number of pixels in row)
+     * @param nY   - resolution on Y axis (number of pixels in column)
+     * @param icol - pixel's column number (pixel index in row)
+     * @param jrow - pixel's row number (pixel index in column)
+     */
+    private void castRay(int nX, int nY, int icol, int jrow) {
+        Ray ray = constructRay(nX, nY, jrow, icol);
+        Color pixelColor = rayTracer.traceRay(ray);
+        imageWriter.writePixel(jrow, icol, pixelColor);
     }
 
 }
