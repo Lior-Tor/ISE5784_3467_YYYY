@@ -6,6 +6,21 @@ package primitives;
 public class Vector extends Point {
 
     /**
+     * Unit vector along the X axis
+     */
+    public static final Vector X = new Vector(1, 0, 0);
+
+    /**
+     * Unit vector along the Y axis
+     */
+    public static final Vector Y = new Vector(0, 1, 0);
+
+    /**
+     * Unit vector along the Z axis
+     */
+    public static final Vector Z = new Vector(0, 0, 1);
+
+    /**
      * Three parameters constructor
      * If the vector isZero = (0,0,0) => throw an Exception
      *
