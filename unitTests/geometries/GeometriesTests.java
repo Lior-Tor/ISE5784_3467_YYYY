@@ -9,8 +9,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for geometries.Geometries class
+ */
 class GeometriesTests {
-
+    /**
+     * Test method for {@link geometries.Geometries#findIntersections(Ray)}.
+     */
     @Test
     void findIntersections() {
         Sphere sphere = new Sphere(1, new Point(2, 2, 0));
@@ -39,5 +44,4 @@ class GeometriesTests {
         result = geometries.findIntersections(new Ray(new Point(0, 2.5, 0), new Vector(5, 0, 0)));
         assertEquals(4, result.size(), "Wrong number of intersections");
     }
-
 }

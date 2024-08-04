@@ -3,10 +3,13 @@ package renderer;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Testing ImageWriter Class
+ */
 class ImageWriterTests {
-
+    /**
+     * Test method for {@link renderer.ImageWriter#writeToImage()}.
+     */
     @Test
     void writeToImage() {
         int nX = 800;
@@ -19,5 +22,4 @@ class ImageWriterTests {
         imageWriter.printGrid(50, red);
         imageWriter.writeToImage();
     }
-
 }

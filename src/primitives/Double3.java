@@ -8,7 +8,6 @@ import static primitives.Util.isZero;
  * @author Dan Zilberstein
  */
 public class Double3 {
-
     /**
      * First number
      */
@@ -166,5 +165,4 @@ public class Double3 {
     public double getD3() {
         return d3;
     }
-
 }

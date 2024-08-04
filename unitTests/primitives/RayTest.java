@@ -7,8 +7,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for primitives.Ray class
+ */
 class RayTest {
-
+    /**
+     * Test method for {@link primitives.Ray#getPoint(double)}.
+     */
     @Test
     void testGetPoint() {
         Ray ray = new Ray(new Point(1, 2, 3), new Vector(1, 0, 0));
@@ -25,6 +30,9 @@ class RayTest {
         assertEquals(new Point(1, 2, 3), ray.getPoint(0), "getPoint() wrong result for zero distance");
     }
 
+    /**
+     * Test method for {@link primitives.Ray#findClosestPoint(java.util.List)}.
+     */
     @Test
     void findClosestPoint() {
         final Ray ray = new Ray(new Point(1, 0, 0), new Vector(-1, 2, 2));
@@ -47,5 +55,4 @@ class RayTest {
         pointList = List.of(new Point(1.7, 1, 0), new Point(1.5, -2, 0), new Point(0.5, 1, 1), new Point(1.31, -0.62, -0.62), new Point(1.16, -0.32, -0.32));
         assertEquals(pointList.get(4), ray.findClosestPoint(pointList), "Bad point");
     }
-
 }

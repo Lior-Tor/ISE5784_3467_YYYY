@@ -4,19 +4,18 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * RadialGeometry abstract Class
+ * Abstract class RadialGeometry is a base class for geometries.
  */
-public abstract class RadialGeometry implements Geometry {
-
+public abstract class RadialGeometry extends Geometry {
     /**
-     * Radius
+     * The radius of the geometry.
      */
     protected double radius;
 
     /**
-     * RadialGeometry constructor
+     * Constructor for the RadialGeometry class receiving a radius.
      *
-     * @param radius fields of RadialGeometry
+     * @param radius the radius of the geometry.
      */
     public RadialGeometry(double radius) {
         this.radius = radius;
@@ -28,5 +27,4 @@ public abstract class RadialGeometry implements Geometry {
                 "radius=" + radius +
                 '}';
     }
-
 }

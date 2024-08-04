@@ -8,21 +8,21 @@ import primitives.Vector;
 import java.util.List;
 
 /**
- * Plane Class
+ * Class Plane is the class representing a plane in the 3D space.
  */
-public class Plane implements Geometry {
-
+public class Plane extends Geometry {
     private final Point q;
-
     private final Vector normal;
 
     /**
-     * Constructor
-     * Calculates the normal according to what was learned about the normal to a triangle
+     * Constructor for the Plane class receiving three points.
+     * The plane is defined by the three points.
+     * The normal is calculated by the cross product of the vectors from p1 to p2 and from p2 to p3.
      *
-     * @param p1
-     * @param p2
-     * @param p3
+     * @param p1 the first point.
+     * @param p2 the second point.
+     * @param p3 the third point.
+     * @throws IllegalArgumentException if the points are on the same line.
      */
     public Plane(Point p1, Point p2, Point p3) {
         this.q = p1;
@@ -42,10 +42,11 @@ public class Plane implements Geometry {
     }
 
     /**
-     * Put in normal filed the normalized vector received as parameter
+     * Constructor for the Plane class receiving a point and a normal.
+     * The plane is defined by the point and the normal.
      *
-     * @param point
-     * @param normal - getting a vector, not necessary a normal vector
+     * @param point  the point.
+     * @param normal getting a vector, not necessary a normal vector.
      */
     public Plane(Point point, Vector normal) {
         this.q = point;
@@ -61,9 +62,9 @@ public class Plane implements Geometry {
     }
 
     /**
-     * Getter for normal field
+     * Getter for normal field.
      *
-     * @return normal
+     * @return the normal.
      */
     public Vector getNormal() {
         return this.normal;
@@ -75,14 +76,14 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        Point p0 = ray.getHead();
-        Vector v = ray.getDirection();
-        Vector n = this.normal;
-        Point q = this.q;
-        Vector sub;
-        double nv;
-        double nqp0;
+    protected List<GeoPoint> findGeoIntersectionHelper(Ray ray) {
+        Point p0 = ray.getHead(); // The head of the ray
+        Vector v = ray.getDirection(); // The direction of the ray
+        Vector n = this.normal; // The normal to the plane
+        Point q = this.q; // A point on the plane
+        Vector sub; // The vector from the head of the ray to the point on the plane
+        double nv; // The dot product of the normal and the direction
+        double nqp0; // The dot product of the normal and the vector from the head of the ray to the point on the plane
 
         try {
             sub = q.subtract(p0);
@@ -91,23 +92,21 @@ public class Plane implements Geometry {
         }
 
         nv = n.dotProduct(v);
-        if (Util.isZero(nv)) {
+        if (Util.isZero(nv)) { // If the ray is parallel to the plane
             return null;
         }
 
         nqp0 = n.dotProduct(sub);
-        if (Util.isZero(nqp0)) {
+        if (Util.isZero(nqp0)) { // If the ray is on the plane
             return null;
         }
 
         double t = Util.alignZero(nqp0 / nv);
-        if (t <= 0) {
+        if (t <= 0) { // If the point is behind the head of the ray
             return null;
         }
 
-        Point result = ray.getPoint(t);
-        return List.of(result);
-
+        Point result = ray.getPoint(t); // The point on the plane
+        return List.of(new GeoPoint(this, result)); // Return the point on the plane
     }
-
 }

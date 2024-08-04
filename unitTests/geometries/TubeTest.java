@@ -7,9 +7,10 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Tube (infinite cylinder)
+/**
+ * Tube tests
+ */
 class TubeTest {
-
     /**
      * Test method for {@link geometries.Tube#Tube(double radius, Ray ray)}.
      */
@@ -43,6 +44,4 @@ class TubeTest {
         Vector expected2 = new Vector(0, 2, 0).normalize();
         assertEquals(expected2, tube.getNormal(pBVA), "BVA : Wrong result of normal in tube");
     }
-
 }
-

@@ -23,6 +23,7 @@ public class ImageWriter {
      * Horizontal resolution of the image - number of pixels in row
      */
     private int nX;
+
     /**
      * Vertical resolution of the image - number of pixels in column
      */
@@ -105,8 +106,8 @@ public class ImageWriter {
      * The function writePixel writes a color of a specific pixel into pixel color
      * matrix
      *
-     * @param xIndex X axis index of the pixel
-     * @param yIndex Y axis index of the pixel
+     * @param xIndex X-axis index of the pixel
+     * @param yIndex Y-axis index of the pixel
      * @param color  final color of the pixel
      */
     public void writePixel(int xIndex, int yIndex, Color color) {
@@ -130,5 +131,4 @@ public class ImageWriter {
             }
         }
     }
-
 }

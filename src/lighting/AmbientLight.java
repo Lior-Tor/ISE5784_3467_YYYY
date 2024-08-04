@@ -3,22 +3,42 @@ package lighting;
 import primitives.Color;
 import primitives.Double3;
 
-public class AmbientLight {
+/**
+ * Represents an ambient light in a scene. Ambient light is light that is present everywhere in the scene.
+ * It is used to simulate the light that is reflected off of surfaces and into the scene.
+ */
+public class AmbientLight extends Light {
+    /**
+     * A constant for no ambient light.
+     */
+    public static final AmbientLight NONE = new AmbientLight(Color.BLACK, 0.0);
 
-    private final Color intensity;
-
-    public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
-
-    public AmbientLight(Color Ia, Double3 Ka) {
-        this.intensity = Ia.scale(Ka);
+    /**
+     * Constructs an ambient light with a given intensity and scale factor.
+     *
+     * @param intensity the base intensity of the ambient light.
+     * @param scale     the scale factor for the intensity.
+     */
+    public AmbientLight(Color intensity, Double3 scale) {
+        super(intensity.scale(scale));
     }
 
-    public AmbientLight(Color Ia, double Ka) {
-        this.intensity = Ia.scale(Ka);
+    /**
+     * Constructs an ambient light with a given intensity and scale factor.
+     *
+     * @param intensity the base intensity of the ambient light.
+     * @param scale     the scale factor for the intensity.
+     */
+    public AmbientLight(Color intensity, double scale) {
+        super(intensity.scale(scale));
     }
 
+    /**
+     * Gets the intensity of the ambient light.
+     *
+     * @return the intensity of the ambient light.
+     */
     public Color getIntensity() {
-        return intensity;
+        return super.getIntensity();
     }
-
 }

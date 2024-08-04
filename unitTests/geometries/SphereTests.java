@@ -9,15 +9,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for geometries.Sphere class
+ */
 class SphereTests {
-
     /**
      * Test method for {@link geometries.Sphere#Sphere(double radius, Point center)}.
      */
     @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
-        // TC01 : Try to create a Sphere
+        // TC01: Try to create a Sphere
         try {
             new Sphere(2, new Point(1, 1, 1));
         } catch (IllegalArgumentException e) {
@@ -142,5 +144,4 @@ class SphereTests {
         assertNull(sphere.findIntersections(new Ray(new Point(-0.5, 0, 0), new Vector(0, 1, 0))),
                 "Ray's line out of sphere");
     }
-
 }

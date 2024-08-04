@@ -13,8 +13,7 @@ import primitives.Vector;
  *
  * @author Dan Zilberstein
  */
-public class Polygon implements Geometry {
-
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -100,4 +99,8 @@ public class Polygon implements Geometry {
         return null;
     }
 
+    @Override
+    protected List<GeoPoint> findGeoIntersectionHelper(Ray ray) {
+        return null;
+    }
 }

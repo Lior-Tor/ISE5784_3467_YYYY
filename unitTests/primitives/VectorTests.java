@@ -6,11 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for primitives.Vector class
- *
- * @author Lior Tordjman
  */
 class VectorTests {
-
     /**
      * Test method for {@link primitives.Vector#add(primitives.Vector)}.
      */
@@ -109,7 +106,6 @@ class VectorTests {
         assertEquals(14d, new Vector(1, 2, 3).lengthSquared(), 0.00001, "lengthSquared() wrong value");
     }
 
-
     /**
      * Test method for {@link primitives.Vector#length()}.
      */
@@ -133,6 +129,4 @@ class VectorTests {
                 "normalized vector is not in the same direction");
         assertEquals(new Vector(0, 0.6, 0.8), n, "wrong normalized vector");
     }
-
 }
-

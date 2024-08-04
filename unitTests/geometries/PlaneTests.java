@@ -10,8 +10,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for geometries.Plane class
+ */
 class PlaneTests {
-
     /**
      * Test method for {@link geometries.Plane#Plane(Point p1, Point p2, Point p3)}.
      */
@@ -29,12 +31,12 @@ class PlaneTests {
         // =============== Boundary Values Tests ==================
         // TC11: two points are the same
         assertThrows(IllegalArgumentException.class,
-                () -> new Plane(new Point(1, 2, 3), new Point(1, 2, 3), new Point(1, 2, 6)), //
+                () -> new Plane(new Point(1, 2, 3), new Point(1, 2, 3), new Point(1, 2, 6)),
                 "Error in ctr when two points are the same");
 
         // TC12: all the points are on the same line
         assertThrows(IllegalArgumentException.class,
-                () -> new Plane(new Point(1, 2, 3), new Point(2, 4, 6), new Point(-1, -2, -3)), //
+                () -> new Plane(new Point(1, 2, 3), new Point(2, 4, 6), new Point(-1, -2, -3)),
                 "Error in ctr when all the points are on the same line");
     }
 
@@ -49,6 +51,9 @@ class PlaneTests {
         assertEquals(new Vector(4, 2, 8).normalize(), plane.getNormal(), "The normal of the plane is not normalized");
     }
 
+    /**
+     * Test method for {@link Plane#findIntersections(Ray)}.
+     */
     @Test
     void testFindIntersections() {
         Plane plane = new Plane(new Point(0, 1, 0), new Point(1, 1, 0), new Point(0, 1, 1));
@@ -71,7 +76,7 @@ class PlaneTests {
         // TC11: The ray included in the plane
         assertNull(plane.findIntersections(new Ray(new Point(0, 1, 0), new Vector(-1, 0, 0))), "Ray is not parallel to the plane");
 
-        //TC12: The ray not included in the plane
+        // TC12: The ray not included in the plane
         assertNull(plane.findIntersections(new Ray(new Point(0, 0, 0), new Vector(-1, 0, 0))), "Ray is not parallel to the plane");
 
         // Group: Ray is orthogonal to the plane
@@ -81,19 +86,18 @@ class PlaneTests {
         assertEquals(1, result.size(), "Wrong number of points");
         assertEquals(List.of(intersect1), result, "There is an intersection!");
 
-        //TC14: In plane
+        // TC14: In plane
         assertNull(plane.findIntersections(new Ray(new Point(0.5, 1, 0), new Vector(0, 1, 0))), " There are no intersections");
 
-        //TC15: After plane
+        // TC15: After plane
         assertNull(plane.findIntersections(new Ray(new Point(-0.5, 2, 0), new Vector(0, 0.5, 0))), " There are no intersections");
 
-        //TC16: Ray is neither orthogonal nor parallel to and begins at the plane
+        // TC16: Ray is neither orthogonal nor parallel to and begins at the plane
         //      (p0 is in the plane, but not the ray)
         assertNull(plane.findIntersections(new Ray(new Point(0.5, 1, 0), new Vector(-1.5, 1, 0))), " There are no intersections");
 
-        //TC17: Ray is neither orthogonal nor parallel to the plane and begins in
+        // TC17: Ray is neither orthogonal nor parallel to the plane and begins in
         //      the same point which appears as reference point in the plane (Q)
         assertNull(plane.findIntersections(new Ray(new Point(0, 1, 0), new Vector(-0.5, 1, 0))), " There are no intersections");
     }
-
 }
