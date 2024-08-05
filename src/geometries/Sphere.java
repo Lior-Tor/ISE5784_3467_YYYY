@@ -7,6 +7,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * Class Sphere is the class representing a sphere in the 3D space.
  */
@@ -38,48 +40,31 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionHelper(Ray ray) {
-        Point p0 = ray.getHead(); // The start point of the ray
-        Point o = this.center; // The center of the sphere
-        Vector v = ray.getDirection(); // The direction of the ray
-        double r = this.radius; // The radius of the sphere
-        Vector u; // The vector from the start point of the ray to the center of the sphere
-
-        try {
-            u = o.subtract(p0);
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+        Vector u; // Vector from the center of the sphere to the head of the ray
+        try { // When p0 and the center are the same point
+            u = this.center.subtract(ray.getHead());
         } catch (IllegalArgumentException ex) {
-            /* p0 is the center of the sphere. */
-            Point intersection = o.add(v.normalize().scale(this.radius));
-            return List.of(new GeoPoint(this, intersection));
+            return  List.of(new GeoPoint(this, ray.getPoint(this.radius)));
         }
 
-        double tm = Util.alignZero(v.dotProduct(u)); // The projection of u on v
-        double squaredDistance = Util.isZero(tm) ? Util.alignZero(u.lengthSquared()) : Util.alignZero(u.lengthSquared() - tm * tm); // The squared distance between the start point of the ray and the center of the sphere
+        double tm = u.dotProduct(ray.getDirection());
+        double d2 = u.lengthSquared() - tm * tm;
+        double th2 = (radius*radius) - d2;
 
-        /* The ray does not intersect the sphere (the squared distance is greater than the squared radius). The ray direction is outside the sphere. */
-        if (squaredDistance >= r * r)
+        if (alignZero(th2) <= 0) // if the ray doesn't intersect the sphere
             return null;
 
-        double th = Math.sqrt(Util.alignZero(r * r - squaredDistance)); // The height of the triangle formed by the ray, the center of the sphere, and the intersection point
-        double t1 = Util.alignZero(tm - th); // The distance from the start point of the ray to the first intersection point
-        double t2 = Util.alignZero(tm + th); // The distance from the start point of the ray to the second intersection point
+        double th = Math.sqrt(th2);
+        double t2 = alignZero(tm + th); // double t2 = alignZero(tm + th2);
 
-        if (t1 > 0 && t2 > 0) { // The ray intersects the sphere in two points
-            Point P1 = ray.getPoint(t1); // The first intersection point
-            Point P2 = ray.getPoint(t2); // The second intersection point
-            return List.of(new GeoPoint(this, P1), new GeoPoint(this, P2)); // Return the list of the intersection points
-        }
+        if (t2 <= 0) // if the ray starts after the sphere
+            return null;
 
-        if (t1 > 0) { // The ray intersects the sphere in one point (first intersection point)
-            Point P1 = ray.getPoint(t1); // The intersection point
-            return List.of(new GeoPoint(this, P1)); // Return the list of the intersection points
-        }
+        double t1 = alignZero(tm -th);
+        if(alignZero(t1-maxDistance)>0 || alignZero(t2-maxDistance)>0) // if the ray is too far
+            return null;
 
-        if (t2 > 0) { // The ray intersects the sphere in one point (second intersection point)
-            Point P2 = ray.getPoint(t2); // The intersection point
-            return List.of(new GeoPoint(this, P2)); // Return the list of the intersection points
-        }
-
-        return null;
+        return t1 <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2))) : List.of(new GeoPoint(this, ray.getPoint(t1)),new GeoPoint(this, ray.getPoint(t2)));
     }
 }

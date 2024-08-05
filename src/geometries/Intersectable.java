@@ -55,30 +55,43 @@ public abstract class Intersectable {
     /**
      * This function returns a list of all the points where the ray intersects.
      *
-     * @param ray The ray to intersect with the object.
-     * @return A list of points.
+     * @param ray the ray to intersect with the object.
+     * @return a list of points.
      */
     public List<Point> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = findGeoIntersections(ray);
-        return intersections == null ? null
-                : intersections.stream().map(gp -> gp.point).collect(Collectors.toList());
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
     }
 
     /**
      * This function returns a list of all the points where the ray intersects the surface of the sphere.
      *
-     * @param ray The ray to intersect with the object.
-     * @return A list of GeoPoints.
+     * @param ray the ray to intersect with the object.
+     * @return a list of GeoPoints.
      */
     public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionHelper(ray);
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
     /**
-     * This function is here to help the findGeoIntersections function to find the list of GeoPoint intersections.
+     * This function finds the intersections of a ray with the Earth's surface, up to a maximum distance.
+     * The function is declared as `public final`. The `final` keyword means that the function cannot be overridden by a subclass.
      *
-     * @param ray The ray to intersect with the object.
-     * @return A list of GeoPoints.
+     * @param ray         the ray to intersect with the object.
+     * @param maxDistance the maximum distance to intersect with the object.
+     * @return a list of GeoPoints.
      */
-    protected abstract List<GeoPoint> findGeoIntersectionHelper(Ray ray);
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+
+    /**
+     * This function finds the intersection points of the given ray with this GeoShape, up to the given maximum distance.
+     *
+     * @param ray         the ray to intersect with the object.
+     * @param maxDistance the maximum distance to intersect with the object.
+     * @return a list of GeoPoints.
+     */
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 }

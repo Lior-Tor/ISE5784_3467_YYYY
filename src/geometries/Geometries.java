@@ -39,39 +39,20 @@ public class Geometries extends Intersectable {
         Collections.addAll(intersections, geometries);
     }
 
-//    @Override
-//    public List<Point> findIntersections(Ray ray) {
-//        List<Point> points = null; // The list of points that intersect the ray
-//
-//        /* For each geometry in the list, find the intersections with the ray */
-//        for (Intersectable geo : intersections) { // For each geometry in the list
-//            List<Point> hasIntersections = geo.findIntersections(ray); // Find the intersections
-//            if (hasIntersections != null) { // If there are intersections
-//                if (points == null) { // If the list of points is not initialized
-//                    points = new ArrayList<>(); // Initialize the list of points
-//                }
-//                points.addAll(hasIntersections); // Add the intersections to the list
-//            }
-//        }
-//
-//        return points; // Return the list of points
-//    }
-
     @Override
-    protected List<GeoPoint> findGeoIntersectionHelper(Ray ray) {
-        List<GeoPoint> geoIntersections = null; // The list of GeoPoints that intersect the ray
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        List<GeoPoint> intersections = null; // The list of intersections to return.
 
-        /* For each geometry in the list, find the intersections with the ray */
-        for (Intersectable item : intersections) { // For each geometry in the list
-            List<GeoPoint> current = item.findGeoIntersections(ray); // Find the intersections
-            if (current != null) { // If there are intersections
-                if (geoIntersections == null) // If the list of GeoPoints is not initialized
-                    geoIntersections = new LinkedList<>(current); // Initialize the list of GeoPoints
+        for (Intersectable item : this.intersections) { // Iterate over the geometries in the list.
+            List<GeoPoint> current = item.findGeoIntersections(ray, maxDistance); // Find the intersections of the current geometry.
+            if (current != null) { // If there are intersections.
+                if (intersections == null) // If this is the first geometry with intersections.
+                    intersections = new LinkedList<>(current); // Initialize the list of intersections.
                 else
-                    geoIntersections.addAll(current); // Add the intersections to the list
+                    intersections.addAll(current); // Add the intersections to the list.
             }
         }
 
-        return geoIntersections; // Return the list of GeoPoints
+        return intersections; // Return the list of intersections.
     }
 }

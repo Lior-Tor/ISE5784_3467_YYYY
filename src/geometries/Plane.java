@@ -5,6 +5,9 @@ import primitives.Ray;
 import primitives.Util;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 import java.util.List;
 
 /**
@@ -76,37 +79,22 @@ public class Plane extends Geometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionHelper(Ray ray) {
-        Point p0 = ray.getHead(); // The head of the ray
-        Vector v = ray.getDirection(); // The direction of the ray
-        Vector n = this.normal; // The normal to the plane
-        Point q = this.q; // A point on the plane
-        Vector sub; // The vector from the head of the ray to the point on the plane
-        double nv; // The dot product of the normal and the direction
-        double nqp0; // The dot product of the normal and the vector from the head of the ray to the point on the plane
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        Point p0 = ray.getHead();
+        Vector v = ray.getDirection();
+        Vector sub;
 
-        try {
+        try { // Calculate the vector from the head of the ray to the point of the plane.
             sub = q.subtract(p0);
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ignore) {
             return null;
         }
 
-        nv = n.dotProduct(v);
-        if (Util.isZero(nv)) { // If the ray is parallel to the plane
+        double nv = normal.dotProduct(v);
+        if (isZero(nv))  // The ray is parallel to the plane.
             return null;
-        }
 
-        nqp0 = n.dotProduct(sub);
-        if (Util.isZero(nqp0)) { // If the ray is on the plane
-            return null;
-        }
-
-        double t = Util.alignZero(nqp0 / nv);
-        if (t <= 0) { // If the point is behind the head of the ray
-            return null;
-        }
-
-        Point result = ray.getPoint(t); // The point on the plane
-        return List.of(new GeoPoint(this, result)); // Return the point on the plane
+        double t = alignZero(normal.dotProduct(sub) / nv);
+        return t > 0 && alignZero(t - maxDistance) <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t))) : null;
     }
 }

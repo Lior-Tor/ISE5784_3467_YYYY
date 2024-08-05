@@ -270,4 +270,39 @@ public class LightsTests {
                 .renderImage()
                 .writeToImage();
     }
+
+    @Test
+    public void sphereDirectionalPointSpot() {
+        Color ourColor = new Color(100, 800, 432);
+        scene1.getGeometries().add(sphere);
+        scene1.getLights().add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5)).setkL(0.001).setkQ(0.0001));
+        scene1.getLights().add(new DirectionalLight(new Vector(5, -90, 45), ourColor));
+        scene1.getLights().add(new PointLight(sphereLightColor, new Point(1, 0, 1)).setkL(0.001).setkQ(0.0002));
+
+        ImageWriter imageWriter = new ImageWriter("lightSphereDirectionalPointSpot", 500, 500);
+        camera1.setImageWriter(imageWriter)
+                .build()
+                .renderImage()
+                .writeToImage();
+    }
+
+    /**
+     * Produce a picture of two triangles lighted by a directional light and a point light
+     */
+    @Test
+    public void trianglesDirectionalPointSpot() {
+        Color ourColor = new Color(100, 800, 432);
+        scene2.getGeometries().add(triangle1, triangle2);
+        scene2.getLights().add(new DirectionalLight(trianglesLightDirection, trianglesLightColor));
+        scene2.getLights().add(new PointLight(trianglesLightColor, trianglesLightPosition)
+                .setkL(0.001).setkQ(0.0002));
+        scene2.getLights().add(new PointLight(trianglesLightColor, trianglesLightPosition)
+                .setkL(0.001).setkQ(0.0002));
+
+        ImageWriter imageWriter = new ImageWriter("lightTrianglesDirectionalPointSpot", 500, 500);
+        camera2.setImageWriter(imageWriter)
+                .build()
+                .renderImage()
+                .writeToImage();
+    }
 }

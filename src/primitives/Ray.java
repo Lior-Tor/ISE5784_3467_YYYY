@@ -11,8 +11,13 @@ import java.util.Objects;
  * side of the given point on the straight line called the beginning of the ray.
  */
 public class Ray {
-    private final Point head;
-    private final Vector direction;
+    private Point head;
+    private Vector direction;
+
+    /**
+     * Ray head shift size for shading rays
+     */
+    private static final double DELTA = 0.1;
 
     /**
      * Constructor for Ray class receiving a point and a vector.
@@ -24,6 +29,20 @@ public class Ray {
     public Ray(Point p, Vector vec) {
         this.direction = vec.normalize();
         this.head = p;
+    }
+
+    /**
+     * Constructor for Ray class that creates a ray from a point, a direction and a normal.
+     *
+     * @param p0     the head of the ray.
+     * @param dir    the direction of the ray.
+     * @param normal the normal vector to the point.
+     */
+    public Ray(Point p0, Vector dir, Vector normal) {
+        double nd = normal.dotProduct(dir);
+        Vector epsVector = normal.scale(nd >= 0 ? DELTA : -DELTA);
+        head = p0.add(epsVector);
+        direction = dir.normalize();
     }
 
     @Override
@@ -71,7 +90,7 @@ public class Ray {
      * @return the point on the ray.
      */
     public Point getPoint(double t) {
-        if (Util.isZero(t)) {
+        if (Util.isZero(t)) { // If t is zero
             return this.head;
         }
         Vector vec = this.direction.scale(t);

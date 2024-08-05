@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 import primitives.Point;
@@ -95,12 +96,39 @@ public class Polygon extends Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        return null;
-    }
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        List<GeoPoint> intersections = plane.findGeoIntersections(ray, maxDistance);
 
-    @Override
-    protected List<GeoPoint> findGeoIntersectionHelper(Ray ray) {
-        return null;
+        if (intersections == null) // if the ray doesn't intersect the plane
+            return null;
+
+        Point p0 = ray.getHead(); // p0 is the ray's head
+        Vector v0 = ray.getDirection(); // v0 is the ray's direction
+        Point p1 = vertices.get(1); // p1 is the second vertex
+        Point p2 = vertices.get(0); // p2 is the first vertex
+        Vector v1 = p1.subtract(p0); // v1 is the vector from p0 to p1
+        Vector v2 = p2.subtract(p0); // v2 is the vector from p0 to p2
+
+        double sign = alignZero(v0.dotProduct(v1.crossProduct(v2))); // sign is the dot product of v0 and the cross product of v1 and v2
+        if (isZero(sign))  // if the sign is zero
+            return null; // the ray doesn't intersect the polygon
+
+        boolean positive = (sign > 0); // positive is true if the sign is positive
+
+        for (int i = vertices.size() - 1; i > 0; --i) { // for each vertex in the polygon
+            v1 = v2;
+            v2 = vertices.get(i).subtract(p0);
+
+            sign = alignZero(v0.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) // if the sign is zero
+                return null;
+            if (positive != (sign > 0)) // if the sign is not positive
+                return null;
+        }
+
+        for (GeoPoint gp : intersections) // for each intersection point
+            gp.geometry = this;
+
+        return intersections; // return the list of intersection points
     }
 }

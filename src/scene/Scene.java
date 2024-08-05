@@ -36,7 +36,7 @@ public class Scene {
     /**
      * The lights of the scene.
      */
-    public List<LightSource> lights = new LinkedList<LightSource>();
+    public List<LightSource> lights = new LinkedList<>();
 
     /**
      * Constructor for the Scene class receiving a name.
@@ -89,5 +89,41 @@ public class Scene {
     public Scene setLights(List<LightSource> lights) {
         this.lights = lights;
         return this;
+    }
+
+    /**
+     * Gets the background of the scene.
+     *
+     * @return the background color.
+     */
+    public Color getBackground() {
+        return background;
+    }
+
+    /**
+     * Gets the ambient light of the scene.
+     *
+     * @return the ambient light.
+     */
+    public AmbientLight getAmbientLight() {
+        return ambientLight;
+    }
+
+    /**
+     * Gets the geometries of the scene.
+     *
+     * @return the geometries.
+     */
+    public Geometries getGeometries() {
+        return geometries;
+    }
+
+    /**
+     * Gets the light sources of the scene.
+     *
+     * @return the light sources.
+     */
+    public List<LightSource> getLights() {
+        return lights;
     }
 }

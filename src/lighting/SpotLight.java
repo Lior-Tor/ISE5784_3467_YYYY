@@ -2,6 +2,8 @@ package lighting;
 
 import primitives.*;
 
+import static primitives.Util.alignZero;
+
 /**
  * A class representing a spotlight in a 3D scene.
  * A spotlight is a type of point light that emits light in a specific direction.
@@ -53,8 +55,8 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point p) {
-        double dirDotL = direction.dotProduct(getL(p)); // Calculate the dot product of the direction and the vector from the light source to the point
-        return super.getIntensity(p).scale(Math.max(0, dirDotL)); // Return the intensity scaled by the dot product
+        double dl = alignZero(getL(p).dotProduct(this.direction));
+        return dl <= 0 ? Color.BLACK : super.getIntensity(p).scale(dl);
     }
 
     @Override

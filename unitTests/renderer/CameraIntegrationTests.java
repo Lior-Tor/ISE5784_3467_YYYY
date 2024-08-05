@@ -117,10 +117,10 @@ public class CameraIntegrationTests {
         // TC01: 1 intersection point
         Camera camera1 = cameraBuilder.setVpSize(VIEW_PLANE, VIEW_PLANE).build();
         Triangle triangle = new Triangle(new Point(0, 1, -2), new Point(1, -1, -2), new Point(-1, -1, -2));
-        //assertEquals(1, countIntersections(camera1, triangle, 1), "Did not find 1 intersection point");
+        assertEquals(1, countIntersections(camera1, triangle, 1), "Did not find 1 intersection point");
 
         // TC02: 2 intersection points
         triangle = new Triangle(new Point(0, 20, -2), new Point(1, -1, -2), new Point(-1, -1, -2));
-        //assertEquals(2, countIntersections(camera1, triangle, 2), "Did not find 2 intersection points");
+        assertEquals(2, countIntersections(camera1, triangle, 2), "Did not find 2 intersection points");
     }
 }
